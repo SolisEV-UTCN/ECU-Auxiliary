@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include Drivers/STM32F3xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
+-include Core/Src/tasks/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -34,34 +35,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := SOLIS_V4_AUXILIARE_V1
+BUILD_ARTIFACT_NAME := WSC_Auxiliary
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-SOLIS_V4_AUXILIARE_V1.elf \
+WSC_Auxiliary.elf \
 
 MAP_FILES += \
-SOLIS_V4_AUXILIARE_V1.map \
+WSC_Auxiliary.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-SOLIS_V4_AUXILIARE_V1.list \
+WSC_Auxiliary.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: SOLIS_V4_AUXILIARE_V1.elf secondary-outputs
+main-build: WSC_Auxiliary.elf secondary-outputs
 
 # Tool invocations
-SOLIS_V4_AUXILIARE_V1.elf SOLIS_V4_AUXILIARE_V1.map: $(OBJS) $(USER_OBJS) C:\Users\User\Desktop\AUX_Solis_V4\STM32F303CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "SOLIS_V4_AUXILIARE_V1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\User\Desktop\AUX_Solis_V4\STM32F303CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="SOLIS_V4_AUXILIARE_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+WSC_Auxiliary.elf WSC_Auxiliary.map: $(OBJS) $(USER_OBJS) C:\Users\paulb\OneDrive\Desktop\Utilities\StmCubeWorkplace\WSC_Auxiliary\STM32F303CBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "WSC_Auxiliary.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\paulb\OneDrive\Desktop\Utilities\StmCubeWorkplace\WSC_Auxiliary\STM32F303CBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="WSC_Auxiliary.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +71,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-SOLIS_V4_AUXILIARE_V1.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "SOLIS_V4_AUXILIARE_V1.list"
+WSC_Auxiliary.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "WSC_Auxiliary.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) SOLIS_V4_AUXILIARE_V1.elf SOLIS_V4_AUXILIARE_V1.list SOLIS_V4_AUXILIARE_V1.map default.size.stdout
+	-$(RM) WSC_Auxiliary.elf WSC_Auxiliary.list WSC_Auxiliary.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

@@ -1,5 +1,5 @@
-#ifndef INC_FUNCTIONS_H_
-#define INC_FUNCTIONS_H_
+#ifndef INC_ALL_TASKS_H_
+#define INC_ALL_TASKS_H_
 
 #include "main.h"
 #include "stm32f3xx_hal.h"
@@ -50,9 +50,7 @@ void Update_Aux_State(aux_state* auxiliary, bool Toggle_State_Right, bool Toggle
 
 void Update_Buttons_State_Offline_Mode(aux_state* Offline_Mode);
 
-void Can_Transmit_Auxiliary_Activity_Check(CAN_HandleTypeDef hcan, uint8_t* Activity_Check);
+void Can_Transmit_Auxiliary_Activity_Check(CAN_HandleTypeDef hcan);
 
-void Get_Adc_Value(ADC_HandleTypeDef hadc4, aux_state* auxiliary, bool Toggle_State_Right, bool Toggle_State_Left, uint32_t adc_value, uint8_t* Activity_Check);
-
-#endif /* INC_FUNCTIONS_H_ */
+#endif /* INC_ALL_TASKS_H_ */
 

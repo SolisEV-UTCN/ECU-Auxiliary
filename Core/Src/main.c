@@ -21,7 +21,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "functions.h"
 
 /* USER CODE END Includes */
 
@@ -104,6 +103,7 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   HAL_Delay(2000); // asteptare pentru configurarea celorlalte sisteme, daca e nevoie
+  HAL_GPIO_WritePin(GPIOB, ENABLE_POWER_Pin, GPIO_PIN_SET);
 
   HAL_CAN_Start(&hcan);
 
@@ -112,6 +112,7 @@ int main(void)
   HAL_Delay(90); // ca sa se faca odata functia Update_State cu 0x00 pentru a regla semnalizarile (TOGGLE_STATE-urile)
 
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
+
 
 
 
@@ -125,9 +126,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-
-
+	  loop();
   }
   /* USER CODE END 3 */
 }
@@ -390,28 +389,47 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(HORN_GPIO_Port, HORN_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, HEARTH_BEAT_Pin|RESERVED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, FEEDBACK_LED_UNUSED_Pin|FEEDBACK_LED2_UNUSED_Pin|FAN_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SIGN_LEFT_Pin|SIGN_RIGHT_Pin|BRAKE_Pin|BACK_LIGHT_Pin
-                          |FRONT_LIGHT_Pin|CAMERA_Pin|HORN_Pin, GPIO_PIN_SET);
+                          |FRONT_LIGHT_Pin|CAMERA_Pin, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : FEEDBACK_LED_UNUSED_Pin FEEDBACK_LED2_UNUSED_Pin FAN_Pin */
-  GPIO_InitStruct.Pin = FEEDBACK_LED_UNUSED_Pin|FEEDBACK_LED2_UNUSED_Pin|FAN_Pin;
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(ENABLE_POWER_GPIO_Port, ENABLE_POWER_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : HORN_Pin */
+  GPIO_InitStruct.Pin = HORN_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(HORN_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : HEARTH_BEAT_Pin FEEDBACK_LED_UNUSED_Pin FEEDBACK_LED2_UNUSED_Pin RESERVED_Pin
+                           FAN_Pin */
+  GPIO_InitStruct.Pin = HEARTH_BEAT_Pin|FEEDBACK_LED_UNUSED_Pin|FEEDBACK_LED2_UNUSED_Pin|RESERVED_Pin
+                          |FAN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : SIGN_LEFT_Pin SIGN_RIGHT_Pin BRAKE_Pin BACK_LIGHT_Pin
-                           FRONT_LIGHT_Pin CAMERA_Pin HORN_Pin */
+                           FRONT_LIGHT_Pin CAMERA_Pin ENABLE_POWER_Pin */
   GPIO_InitStruct.Pin = SIGN_LEFT_Pin|SIGN_RIGHT_Pin|BRAKE_Pin|BACK_LIGHT_Pin
-                          |FRONT_LIGHT_Pin|CAMERA_Pin|HORN_Pin;
+                          |FRONT_LIGHT_Pin|CAMERA_Pin|ENABLE_POWER_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

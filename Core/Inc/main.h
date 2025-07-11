@@ -31,12 +31,12 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include<all_tasks.h>
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+void loop(void);
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -57,10 +57,16 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define HORN_Pin GPIO_PIN_14
+#define HORN_GPIO_Port GPIOC
+#define HEARTH_BEAT_Pin GPIO_PIN_0
+#define HEARTH_BEAT_GPIO_Port GPIOA
 #define FEEDBACK_LED_UNUSED_Pin GPIO_PIN_1
 #define FEEDBACK_LED_UNUSED_GPIO_Port GPIOA
 #define FEEDBACK_LED2_UNUSED_Pin GPIO_PIN_2
 #define FEEDBACK_LED2_UNUSED_GPIO_Port GPIOA
+#define RESERVED_Pin GPIO_PIN_6
+#define RESERVED_GPIO_Port GPIOA
 #define FAN_Pin GPIO_PIN_7
 #define FAN_GPIO_Port GPIOA
 #define SIGN_LEFT_Pin GPIO_PIN_0
@@ -75,8 +81,8 @@ void Error_Handler(void);
 #define FRONT_LIGHT_GPIO_Port GPIOB
 #define CAMERA_Pin GPIO_PIN_12
 #define CAMERA_GPIO_Port GPIOB
-#define HORN_Pin GPIO_PIN_13
-#define HORN_GPIO_Port GPIOB
+#define ENABLE_POWER_Pin GPIO_PIN_13
+#define ENABLE_POWER_GPIO_Port GPIOB
 #define SENZOR_CURENT_Pin GPIO_PIN_14
 #define SENZOR_CURENT_GPIO_Port GPIOB
 #define FRONT_LIGHT_OFFLINE_MODE_Pin GPIO_PIN_15
