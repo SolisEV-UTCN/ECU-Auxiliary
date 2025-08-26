@@ -17,14 +17,15 @@ typedef union
     uint8_t state;
     struct
     {
-        uint8_t sign_left : 1;
-        uint8_t sign_right : 1;
-        uint8_t fan : 1;
-        uint8_t brake : 1;
-        uint8_t horn : 1;
-        uint8_t avarie : 1;
-        uint8_t camera : 1;
-        uint8_t faruri : 1;
+        uint8_t sign_left  : 1; // 0x01
+        uint8_t sign_right : 1; // 0x02
+        uint8_t fan        : 1; // 0x04
+        uint8_t brake      : 1; // 0x08
+
+        uint8_t horn       : 1; // 0x10
+        uint8_t avarie     : 1; // 0x20
+        uint8_t camera     : 1; // 0x30
+        uint8_t faruri     : 1; // 0x80
     };
 } aux_state;
 
@@ -46,7 +47,7 @@ typedef enum
     ON
 } bool;
 
-void Update_Aux_State(aux_state* auxiliary, bool Toggle_State_Right, bool Toggle_State_Left, uint8_t Sign_Left_500ms_Timer, uint8_t Sign_Right_500ms_Timer);
+void Update_Aux_State(aux_state* auxiliary, bool Toggle_State_Right, bool Toggle_State_Left);
 
 void Update_Buttons_State_Offline_Mode(aux_state* Offline_Mode);
 

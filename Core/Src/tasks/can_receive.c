@@ -21,11 +21,8 @@ void USB_LP_CAN_RX0_IRQHandler(void)
   	  HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &Rx_Dash_Header, Rx_Dash_Data);
 
   //Get CAN message only if Offline Mode Switch is OFF
-  	  if(Offline_Mode_Switch == OFF)
-  	  {
   		  auxiliary->state = Rx_Dash_Data[0];
   		  Dash_Activity = 0;
-  	  }
 
   /* USER CODE END USB_LP_CAN_RX0_IRQn 1 */
 }

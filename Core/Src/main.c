@@ -82,7 +82,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+   HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -102,20 +102,14 @@ int main(void)
   MX_ADC4_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(2000); // asteptare pentru configurarea celorlalte sisteme, daca e nevoie
-  HAL_GPIO_WritePin(GPIOB, ENABLE_POWER_Pin, GPIO_PIN_SET);
-
   HAL_CAN_Start(&hcan);
 
   HAL_TIM_Base_Start_IT(&htim2); //56ms
   HAL_TIM_Base_Start_IT(&htim3); // 76ms
   HAL_Delay(90); // ca sa se faca odata functia Update_State cu 0x00 pentru a regla semnalizarile (TOGGLE_STATE-urile)
 
+  HAL_Delay(2000);
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
-
-
-
-
 
   /* USER CODE END 2 */
 
