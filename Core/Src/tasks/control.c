@@ -112,7 +112,7 @@ void Update_Aux_State( aux_state* auxiliary ,
 
 		HAL_GPIO_WritePin(GPIOC, HORN_Pin, (!auxiliary->horn) );
 		HAL_GPIO_WritePin(GPIOB, CAMERA_Pin, (!auxiliary->camera) );
-		HAL_GPIO_WritePin(GPIOB, BACK_LIGHT_Pin | FRONT_LIGHT_Pin, (!auxiliary->faruri) );
+		HAL_GPIO_WritePin(GPIOB, /*BACK_LIGHT_Pin |*/ FRONT_LIGHT_Pin, (!auxiliary->faruri) );
 		HAL_GPIO_WritePin(GPIOB, BRAKE_Pin, (!auxiliary->brake) );
 		HAL_GPIO_WritePin(GPIOA, FAN_Pin, (!auxiliary->fan) );
 
