@@ -104,11 +104,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_CAN_Start(&hcan);
 
-  HAL_TIM_Base_Start_IT(&htim2); //56ms
-  HAL_TIM_Base_Start_IT(&htim3); // 76ms
-  HAL_Delay(90); // ca sa se faca odata functia Update_State cu 0x00 pentru a regla semnalizarile (TOGGLE_STATE-urile)
+  HAL_TIM_Base_Start_IT(&htim2); // 56ms - dashboard watchdog / offline mode check
+  HAL_TIM_Base_Start_IT(&htim3); // 76ms - output update / CAN alive frame
+  HAL_Delay(90); // Allow one Update_Aux_State cycle with 0x00 to reset blinker toggle states
 
-  HAL_Delay(2000);
+  HAL_Delay(2000); // Wait for power-on stabilization before enabling CAN RX
   HAL_CAN_ActivateNotification(&hcan, CAN_IT_RX_FIFO0_MSG_PENDING);
 
   /* USER CODE END 2 */

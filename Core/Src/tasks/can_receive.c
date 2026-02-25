@@ -1,11 +1,12 @@
-#include"main.h"
+#include "main.h"
 
 extern CAN_HandleTypeDef hcan;
-extern aux_state* auxiliary;
+extern aux_state *auxiliary;
 
 extern bool Offline_Mode_Switch;
 extern uint8_t Dash_Activity;
 
+/* CAN RX FIFO0 interrupt: receives the auxiliary state byte from dashboard */
 void USB_LP_CAN_RX0_IRQHandler(void)
 {
   /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 0 */
@@ -17,12 +18,11 @@ void USB_LP_CAN_RX0_IRQHandler(void)
   HAL_CAN_IRQHandler(&hcan);
   /* USER CODE BEGIN USB_LP_CAN_RX0_IRQn 1 */
 
-  //Get CAN message
-  	  HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &Rx_Dash_Header, Rx_Dash_Data);
+	HAL_CAN_GetRxMessage(&hcan, CAN_RX_FIFO0, &Rx_Dash_Header, Rx_Dash_Data);
 
-  //Get CAN message only if Offline Mode Switch is OFF
-  		  auxiliary->state = Rx_Dash_Data[0];
-  		  Dash_Activity = 0;
+	/* Apply the received state and reset the dashboard activity watchdog */
+	auxiliary->state = Rx_Dash_Data[0];
+	Dash_Activity = 0;
 
   /* USER CODE END USB_LP_CAN_RX0_IRQn 1 */
 }
