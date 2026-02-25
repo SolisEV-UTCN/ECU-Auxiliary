@@ -5,7 +5,6 @@
 #include "stm32f3xx_hal.h"
 //#include "stm32f3xx_hal_can.h"
 
-// can id
 #define DASHBOARD_ID 0x701
 #define AUXILIARY_ID 0x700
 #define SAFE_STATE 0x00
@@ -30,6 +29,17 @@ typedef union
     };
 } aux_state;
 
+typedef struct
+{
+    uint32_t Sign_Left_Current;
+    uint32_t Sign_Right_Current;
+    uint32_t Fan_Current;
+    uint32_t Brake_Current;
+    uint32_t Horn_Current;
+    uint32_t Avarie_Current;
+    uint32_t Camera_Current;
+    uint32_t Faruri_Current;
+} Aux_Error;
 
 typedef enum
 {
